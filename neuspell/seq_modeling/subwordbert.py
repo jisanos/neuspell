@@ -34,6 +34,8 @@ def load_pretrained(model, checkpoint_path, optimizer=None, device='cuda'):
         download_pretrained_model(checkpoint_path)
         checkpoint_data = torch.load(os.path.join(checkpoint_path, "pytorch_model.bin"), map_location=map_location)
 
+    # Removing due to unexpected key error thrown by pytorch
+    checkpoint_data.pop("bert_model.embeddings.position_ids")
     model.load_state_dict(checkpoint_data)
 
     return model
@@ -47,6 +49,9 @@ def load_pretrained_large(model, checkpoint_path, optimizer=None, device='cuda')
     print(f"Loading model params from checkpoint dir: {checkpoint_path}")
     checkpoint_data = torch.load(os.path.join(checkpoint_path, "model.pth.tar"), map_location=map_location)
     # print(f"previously model saved at : {checkpoint_data['epoch_id']}")
+
+    # Removing due to unexpected key error thrown by pytorch
+    checkpoint_data['model_state_dict'].pop("bert_model.embeddings.position_ids")
 
     model.load_state_dict(checkpoint_data['model_state_dict'])
     if optimizer is not None:
