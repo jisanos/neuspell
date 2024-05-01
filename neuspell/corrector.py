@@ -136,8 +136,8 @@ class Corrector(ABC):
 
         return
 
-    def from_pretrained(self, ckpt_path=None, vocab_path=None, **kwargs):
-        self._from_pretrained(ckpt_path=None, vocab_path=None, **kwargs)
+    def from_pretrained(self, ckpt_path=None, vocab_path=None):
+        self._from_pretrained(ckpt_path=ckpt_path, vocab_path=vocab_path)
 
     def load_output_vocab(self, vocab_path):
         print(f"loading vocab from path:{vocab_path}")
