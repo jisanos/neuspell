@@ -13,6 +13,7 @@ class CnnlstmChecker(Corrector):
     def load_model(self, ckpt_path):
         print(f"initializing model")
         initialized_model = load_model(self.vocab)
+        self.ckpt_path = ckpt_path
         self.model = load_pretrained(initialized_model, self.ckpt_path, device=self.device)
 
     def correct_strings(self, mystrings: List[str], return_all=False) -> List[str]:
